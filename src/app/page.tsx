@@ -50,6 +50,7 @@ export default async function Home() {
           ? (
             <>
               <h1>{session.user?.name}</h1>
+              <h2>Role: {session.user?.role}</h2>
               <SignOutButton>Sign Out</SignOutButton>
             </>
           )

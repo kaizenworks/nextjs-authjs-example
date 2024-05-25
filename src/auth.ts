@@ -20,7 +20,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 				&& password==process.env.ADMIN_PASS) {
 					return {
 						id: '1',
-						name: 'Admin'
+						name: 'Admin',
+						role: 'staff'
 					}
 				}
 			
@@ -28,4 +29,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 		},
 	  }),
   ],
+  callbacks: {
+	jwt({token,user}) {
+		if(user) {
+			token.role = user.role;
+		}
+		return token;
+	},
+	session({ session, token }) {
+		session.user.role = token.role
+		return session
+	  },  
+  }
 })
